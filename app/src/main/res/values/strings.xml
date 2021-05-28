@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WeatherMaestro</string>
+    <string name="weather_hint">Enter your location…</string>
+    <string name="sunny">Sunny</string>
 </resources>
