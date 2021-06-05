@@ -32,12 +32,15 @@ public class ApiService {
                 query += "," + location.stateCode;
             }
         }
-        else if (location.latitude != null && location.longitude != null) { // if no city is specified, use geolocation
+        // if no city is specified, use geolocation
+        else if (location.latitude != null && location.longitude != null) {
             query += "lat=" + location.latitude + "&lon=" + location.longitude;
         }
+        // if a location was successfully set, continue
         if (!query.equals("")) {
-            query += "&appid=" + API_KEY;
+            query += "&appid=" + API_KEY; // adds the API key to the query
 
+            // check for preferred units and add them to the query string
             if (units != null) {
                 if (units.toUpperCase().equals("F")) {
                     query += "&units=imperial";
@@ -46,10 +49,11 @@ public class ApiService {
                     query += "&units=metric";
                 }
             }
+            // ObjectMapper turns a JSON response into java objects
             ObjectMapper mapper = new ObjectMapper();
-
             try {
-                currentWeather = mapper.readValue(new URL(URI+query),CurrentWeather.class);// try grabbing the URL without Volley??
+                //builds the URL and opens a stream for deserialization, then puts the result into the return object
+                currentWeather = mapper.readValue(new URL(URI+query),CurrentWeather.class);
             } catch (IOException e) {
                 e.printStackTrace();
             }
