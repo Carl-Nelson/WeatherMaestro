@@ -16,15 +16,14 @@ public class ApiServiceTests {
 
     @Test
     public void ShouldReturnWeather_WhenGivenValidLocation() {
-        ApiService apiService = new ApiService();
         Location location = new Location();
         location.city = "Seattle";
 
-        CurrentWeather weather = apiService.GetCurrentWeather(location);
+        CurrentWeather weather = ApiService.GetCurrentWeather(location, "F");
 
         System.out.println(weather.weather.get(0).main);
         System.out.println(weather.weather.get(0).description);
-        System.out.println(weather.main.temp);
+        System.out.println(weather.main.temp+"F");
         assertNotNull(weather);
     }
 }
