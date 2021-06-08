@@ -18,7 +18,6 @@ public class ApiService {
      *  @return             An object representing the API response
      */
     public static CurrentWeather GetCurrentWeather(Location location, String units) {
-
         CurrentWeather currentWeather = null;
         String URI = API_ADDRESS + "weather?q=";
         String query = "";
