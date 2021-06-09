@@ -48,12 +48,10 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
             case R.id.nav_saved:
                 fragment = new SavedPlacesFragment();
                 break;
-            case R.id.nav_search:
-                fragment = new SearchFragment();
-                break;
             case R.id.nav_home:
                 intent = new Intent(this, Settings.class);
                 break;
+            case R.id.nav_search:
             default:
                 fragment = new SearchFragment();
         }
