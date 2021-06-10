@@ -9,15 +9,16 @@ public class ApiService {
     private static final String API_KEY = "48a518fb409cd12339687e425797561c";
     private static final String API_ADDRESS = "http://api.openweathermap.org/data/2.5/";
 
-    /* * *
+    /**
      *  Returns a deserialized API response that contains current weather details for
      *  the given location.
      *
-     *  @param  location    Location object containing either a city and state, or coordinates
+     *  @param  location    UserLocation object containing either a city and state, or coordinates
      *  @param  units       Either F for imperial units or C for metric. Anything else will default to kelvin. Might change that.
      *  @return             An object representing the API response
      */
-    public static CurrentWeather GetCurrentWeather(Location location, String units) {
+
+    public static CurrentWeather GetCurrentWeather(UserLocation location, String units) {
         CurrentWeather currentWeather = null;
         String URI = API_ADDRESS + "weather?q=";
         String query = "";
