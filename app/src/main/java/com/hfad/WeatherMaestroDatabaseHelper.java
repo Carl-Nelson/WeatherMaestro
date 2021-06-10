@@ -26,7 +26,7 @@ class WeatherMaestroDatabaseHelper extends SQLiteOpenHelper {
         updateMyDatabase(db, oldVersion, newVersion);
     }
     private static void insertWeather(SQLiteDatabase db, String main,
-                                      String description, Integer icon, String iconKey) {
+                                      String description, String icon, String iconKey) {
         ContentValues weatherValues = new ContentValues();
         weatherValues.put("MAIN", main);
         weatherValues.put("DESCRIPTION", description);
@@ -38,17 +38,17 @@ class WeatherMaestroDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("CREATE TABLE WEATHER (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + "MAIN TEXT, "
                     + "DESCRIPTION TEXT, "
-                    + "ICON INTEGER, "
+                    + "ICON TEXT, "
                     + "ICONKEY TEXT);");
-            insertWeather(db, "Clear", "clear sky", R.drawable.d01, "01d");
-            insertWeather(db, "Clouds", "few clouds", R.drawable.d02, "02d");
-            insertWeather(db, "Clouds", "scattered clouds", R.drawable.d03, "03d");
-            insertWeather(db, "Clouds", "broken clouds",R.drawable.d04, "04d");
-            insertWeather(db, "Rain", "shower rain", R.drawable.d09, "09d");
-            insertWeather(db, "Rain", "rain", R.drawable.d10, "10d");
-            insertWeather(db, "Thunderstorm", "thunderstorm", R.drawable.d11, "11d");
-            insertWeather(db, "Snow", "snow", R.drawable.d13, "13d");
-            insertWeather(db, "Mist", "mist", R.drawable.d50, "50d");
+            insertWeather(db, "Clear", "clear sky", String.valueOf(R.drawable.d01), "01d");
+            insertWeather(db, "Clouds", "few clouds", String.valueOf(R.drawable.d02), "02d");
+            insertWeather(db, "Clouds", "scattered clouds", String.valueOf(R.drawable.d03), "03d");
+            insertWeather(db, "Clouds", "broken clouds", String.valueOf(R.drawable.d04), "04d");
+            insertWeather(db, "Rain", "shower rain", String.valueOf(R.drawable.d09), "09d");
+            insertWeather(db, "Rain", "rain", String.valueOf(R.drawable.d10), "10d");
+            insertWeather(db, "Thunderstorm", "thunderstorm", String.valueOf(R.drawable.d11), "11d");
+            insertWeather(db, "Snow", "snow", String.valueOf(R.drawable.d13), "13d");
+            insertWeather(db, "Mist", "mist", String.valueOf(R.drawable.d50), "50d");
         }
         if (oldVersion < 2) {
             db.execSQL("ALTER TABLE WEATHER ADD COLUMN FAVORITE NUMERIC;");
