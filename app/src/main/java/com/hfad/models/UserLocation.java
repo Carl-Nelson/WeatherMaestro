@@ -1,6 +1,6 @@
 package com.hfad.models;
 
-public class Location {
+public class UserLocation {
     public String city;
     public String stateCode;
     public String zip;
