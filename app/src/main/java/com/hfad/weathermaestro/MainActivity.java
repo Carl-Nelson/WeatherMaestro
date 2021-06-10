@@ -9,9 +9,7 @@ import android.os.Bundle;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Tasks;
-import com.hfad.models.Coord;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
