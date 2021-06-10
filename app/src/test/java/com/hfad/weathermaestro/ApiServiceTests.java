@@ -1,6 +1,6 @@
 package com.hfad.weathermaestro;
 
-import com.hfad.models.Location;
+import com.hfad.models.UserLocation;
 import com.hfad.models.CurrentWeather;
 
 import org.junit.Test;
@@ -16,7 +16,7 @@ public class ApiServiceTests {
 
     @Test
     public void ShouldReturnWeather_WhenGivenValidLocation() {
-        Location location = new Location();
+        UserLocation location = new UserLocation();
         location.city = "Seattle";
 
         CurrentWeather weather = ApiService.GetCurrentWeather(location, "F");

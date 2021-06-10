@@ -1,6 +1,6 @@
 package com.hfad.models;
 
-import com.hfad.weathermaestro.R;
+//import com.hfad.weathermaestro.R;
 
 public class Weather {
     public int id;
@@ -8,6 +8,9 @@ public class Weather {
     public String description; // ex. "clear sky"
     public String icon; // filename of weather icon ie. "01d" for clear
     //icon has to be a String for JSON deserialization. Do not change.
+
+    //APIName | drawable
+    //"01d"   | "R.drawable.d01"
 
     //get weather icons from drawables
 //    public static final Weather[] weathers = {
