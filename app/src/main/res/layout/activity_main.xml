@@ -8,7 +8,7 @@
     android:gravity="center_horizontal"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    tools:context=".MainActivity">
+    tools:context="com.hfad.weathermaestro.MainActivity">
 
     <LinearLayout
         android:id="@+id/weather_container"
@@ -19,10 +19,13 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tempUnit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="bottom|end"
-            android:paddingRight="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="0dp"
+            android:paddingBottom="10dp"
             android:text="°F"
             android:textColor="@color/white"
             android:textSize="24sp" />
@@ -33,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="-36dp"
             android:gravity="center_horizontal"
-            android:text="89"
+            android:text="\?"
             android:textColor="@color/white"
             android:textSize="72sp" />
 
@@ -41,7 +44,7 @@
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Los Angeles"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="36sp" />
 
@@ -50,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/sunny"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -74,19 +77,20 @@
         android:layout_marginBottom="16dp"
         android:weightSum="1">
 
-        <EditText
-            android:id="@+id/location_field"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".75"
-            android:backgroundTint="@color/white"
-            android:hint="@string/weather_hint"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@color/white"
-            android:textColorHint="@color/transparentWhite"
-            android:textSize="18sp" />
+<!--        <EditText-->
+<!--            android:id="@+id/location_field"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight=".75"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:hint="@string/weather_hint"-->
+<!--            android:maxLines="1"-->
+<!--            android:singleLine="true"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textColorHint="@color/transparentWhite"-->
+<!--            android:textSize="18sp" />-->
     </LinearLayout>
+
     <android.widget.SearchView
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -94,4 +98,12 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="16dp"
         app:fabSize="normal" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClick"
+        android:text="Button" />
+
 </FrameLayout>

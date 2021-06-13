@@ -12,6 +12,8 @@ public class CurrentWeather {
     public int visibility; // no idea what unit this is
     public Wind wind;
     public Clouds clouds;
+    public Rain rain;
+    public Snow snow;
     public long dt; // utc unix time
     public Sys sys;
     public long timezone; // timezone offset, add to dt to get the time in the local timezone

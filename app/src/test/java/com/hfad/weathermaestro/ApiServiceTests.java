@@ -19,7 +19,7 @@ public class ApiServiceTests {
         UserLocation location = new UserLocation();
         location.city = "Seattle";
 
-        CurrentWeather weather = ApiService.GetCurrentWeather(location, "F");
+        CurrentWeather weather = ApiService.getCurrentWeather(location, "F");
 
         System.out.println(weather.weather.get(0).main);
         System.out.println(weather.weather.get(0).description);

@@ -7,7 +7,9 @@ import java.net.URL;
 
 public class ApiService {
     private static final String API_KEY = "48a518fb409cd12339687e425797561c";
-    private static final String API_ADDRESS = "http://api.openweathermap.org/data/2.5/";
+    private static final String API_ADDRESS = "https://api.openweathermap.org/data/2.5/";
+    public static final String UNITS_IMPERIAL = "F";
+    public static final String UNITS_METRIC = "C";
 
     /**
      *  Returns a deserialized API response that contains current weather details for
@@ -18,7 +20,7 @@ public class ApiService {
      *  @return             An object representing the API response
      */
 
-    public static CurrentWeather GetCurrentWeather(UserLocation location, String units) {
+    public static CurrentWeather getCurrentWeather(UserLocation location, String units) {
         CurrentWeather currentWeather = null;
         String URI = API_ADDRESS + "weather?q=";
         String query = "";
@@ -42,10 +44,10 @@ public class ApiService {
 
             // check for preferred units and add them to the query string
             if (units != null) {
-                if (units.toUpperCase().equals("F")) {
+                if (units.toUpperCase().equals(UNITS_IMPERIAL)) {
                     query += "&units=imperial";
                 }
-                else if (units.toUpperCase().equals("C")) {
+                else if (units.toUpperCase().equals(UNITS_METRIC)) {
                     query += "&units=metric";
                 }
             }
@@ -55,7 +57,7 @@ public class ApiService {
                 //builds the URL and opens a stream for deserialization, then puts the result into the return object
                 currentWeather = mapper.readValue(new URL(URI+query),CurrentWeather.class);
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Object mapper failed.");
             }
         }
 
