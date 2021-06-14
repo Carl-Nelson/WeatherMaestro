@@ -22,12 +22,12 @@ public class ApiService {
 
     public static CurrentWeather getCurrentWeather(UserLocation location, String units) {
         CurrentWeather currentWeather = null;
-        String URI = API_ADDRESS + "weather?q=";
+        String URI = API_ADDRESS + "weather?";
         String query = "";
 
         //if the location object specifies a city, then use that
         if (location.city != null && !location.city.equals("")) {
-            query += location.city;
+            query += "q=" + location.city;
 
             // add state code to the query if it exists
             if (location.stateCode != null && !location.stateCode.equals("")) {
