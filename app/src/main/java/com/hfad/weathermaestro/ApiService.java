@@ -33,6 +33,7 @@ public class ApiService {
             if (location.stateCode != null && !location.stateCode.equals("")) {
                 query += "," + location.stateCode;
             }
+            query+=",US";
         }
         // if no city is specified, use geolocation
         else if (location.latitude != null && location.longitude != null) {
@@ -57,7 +58,8 @@ public class ApiService {
                 //builds the URL and opens a stream for deserialization, then puts the result into the return object
                 currentWeather = mapper.readValue(new URL(URI+query),CurrentWeather.class);
             } catch (IOException e) {
-                System.out.println("Object mapper failed.");
+                //System.out.println("Object mapper failed.");
+                System.out.println(e.getMessage());
             }
         }
 

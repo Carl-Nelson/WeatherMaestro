@@ -35,16 +35,17 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private static final int LOCATION_PERMISSION_CODE = 100;
-
-    private FusedLocationProviderClient fusedLocationClient;
+    // thread stuff
     private final ExecutorService executor = Executors.newFixedThreadPool(1);
     private final Handler handler = HandlerCompat.createAsync(Looper.getMainLooper());
+    // location stuff
+    private FusedLocationProviderClient fusedLocationClient;
     private Location geolocation;
-
     private final LocationRequest locationRequest = LocationRequest.create();
+    // callback method for receiving location updates
     private final LocationCallback locationCallback = new LocationCallback() {
         @Override
-        public void onLocationResult(LocationResult locationResult) {
+        public void onLocationResult(LocationResult locationResult) { // ignore the dumb annotation warning
             if (locationResult == null) {
                 System.out.println("No location data");
                 return;
@@ -115,9 +116,7 @@ public class MainActivity extends AppCompatActivity {
     private void displayWeather(CurrentWeather weather) {
         if (weather == null) {
             System.out.println("Failed to retrieve weather.");
-        }
-
-        if (weather != null) {
+        } else {
             TextView temp = findViewById(R.id.temperature);
             temp.setText(String.format(Locale.getDefault(),"%.0f",weather.main.temp));
             TextView city = findViewById(R.id.location);
@@ -125,13 +124,14 @@ public class MainActivity extends AppCompatActivity {
             TextView condition = findViewById(R.id.weather_condition);
             condition.setText(weather.weather.get(0).main);
         }
-
     }
 
     /**
      * Asynchronous method that gets the current weather for the user's location
-     * and calls displayWeather() to update the UI display. Or it tells the handler to
-     * call displayWeather() technically.
+     * and calls displayWeather() to update the UI display. Technically it tells the handler to
+     * call displayWeather()...
+     *
+     * @param location  UserLocation object containing whatever location data is available
      */
     private void getWeather(UserLocation location) {
         // TODO: Update this to get location from database if available, also get units
@@ -163,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
     @Nullable
     private Location getLocation() { //TODO: Add the ability to get location from settings
 
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
         ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
 
@@ -176,10 +175,7 @@ public class MainActivity extends AppCompatActivity {
             return geolocation;
         }
         try {
-
             return Tasks.await(fusedLocationClient.getLastLocation());
-
-
         } catch (ExecutionException | InterruptedException e) {
             System.out.println("Encountered an exception while retrieving location from the fused location client.");
         }
