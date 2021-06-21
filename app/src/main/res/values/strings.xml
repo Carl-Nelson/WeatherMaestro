@@ -1,7 +1,15 @@
 <resources>
     <string name="app_name">WeatherMaestro</string>
     <string name="weather_hint">Enter your location…</string>
+    <string name="currentLocation">Press for current location</string>
     <string name="sunny">Sunny</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_open_drawer">Open navigation drawer</string>
+    <string name="nav_close_drawer">Close navigation drawer</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_setting">Settings</string>
+    <string name="nav_saved">Saved Places</string>
+    <string name="nav_home">Home Page</string>
     <string name="refresh_description">Refresh weather display</string>
     <string name="weather_icon">Weather icon</string>
 </resources>

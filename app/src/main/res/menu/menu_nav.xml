@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<!--    This works for some reason but isn't used since nav bar doesn't work-->
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="@string/nav_home"
+            android:checked="true" />
+        <item
+            android:id="@+id/nav_search"
+            android:title="@string/nav_search"/>
+        <item
+            android:id="@+id/nav_saved"
+            android:title="@string/nav_saved" />
+        <item
+            android:id="@+id/nav_setting"
+            android:title="@string/nav_setting"/>
+    </group>
+</menu>

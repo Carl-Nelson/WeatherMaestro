@@ -1,7 +1,9 @@
 package com.hfad.weathermaestro;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hfad.models.*;
+import com.hfad.models.CurrentWeather;
+import com.hfad.models.UserLocation;
+
 import java.io.IOException;
 import java.net.URL;
 

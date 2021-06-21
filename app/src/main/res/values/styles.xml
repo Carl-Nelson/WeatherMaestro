@@ -1,5 +1,8 @@
 <resources>
-
-    <!-- Base application theme. -->
-
+<!--    was supposed to be the styling for the nav bar-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/design_default_color_primary</item>
+        <item name="colorPrimaryDark">@color/design_default_color_primary_dark</item>
+        <item name="colorAccent">@color/design_default_color_secondary</item>
+    </style>
 </resources>
