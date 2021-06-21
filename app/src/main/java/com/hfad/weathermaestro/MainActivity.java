@@ -7,11 +7,16 @@ import androidx.core.os.HandlerCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,28 +64,33 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+    //DB stuff
+    private SQLiteDatabase db;
+    private Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Get location provider from Google Play services to make requests
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
+        // Configure request
         locationRequest.setInterval(50000);
         locationRequest.setFastestInterval(3000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        // Ask for location permission if needed
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
 
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_CODE);
-
         } else {
+            // Request regular location updates
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
 
             System.out.println("Requested location updates.");
         }
-
+        // Event listener for the search view
         SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -97,13 +107,28 @@ public class MainActivity extends AppCompatActivity {
         };
         SearchView searchView = findViewById(R.id.fab);
         searchView.setOnQueryTextListener(queryTextListener);
+
+        // Initialize the database
+        SQLiteOpenHelper databaseHelper = new WeatherMaestroDatabaseHelper(this);
+        try {
+            db = databaseHelper.getReadableDatabase();
+        } catch (SQLiteException e) {
+            Toast toast = Toast.makeText(this,"Database unavailable", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
         getWeather(new UserLocation());
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        cursor.close();
+        db.close();
     }
 
     public void onButtonClick(View view) {
@@ -112,11 +137,18 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Updates the weather display
+     *
+     * @param weather   CurrentWeather object deserialized from the API response
      */
     private void displayWeather(CurrentWeather weather) {
         if (weather == null) {
             System.out.println("Failed to retrieve weather.");
         } else {
+            cursor = db.query("Drawables", new String[]{"Drawable"},"Icon = ?",new String[]{weather.weather.get(0).icon},null,null,null);
+            if (cursor.moveToFirst()) {
+                ImageView iconView = findViewById(R.id.weather_icon);
+                iconView.setImageResource(Integer.parseInt(cursor.getString(0)));
+            }
             TextView temp = findViewById(R.id.temperature);
             temp.setText(String.format(Locale.getDefault(),"%.0f",weather.main.temp));
             TextView city = findViewById(R.id.location);
@@ -141,19 +173,16 @@ public class MainActivity extends AppCompatActivity {
             if (geolocation != null) {
                 location.latitude = Double.toString(geolocation.getLatitude());
                 location.longitude = Double.toString(geolocation.getLongitude());
-            }
-            else {
+            } else {
                 System.out.println("Could not retrieve location.");
             }
-
-            // just gonna do imperial units by default
+            // just gonna do imperial units by default for now
             CurrentWeather weather = ApiService.getCurrentWeather(location, ApiService.UNITS_IMPERIAL);
 
             handler.post(() -> displayWeather(weather));
         });
 
     }
-
     /**
      *  Returns a Location object with the longitude and latitude of the user's last known location.
      *  (important methods for Location: getLongitude(), getLatitude())
