@@ -10,4 +10,6 @@
     <string name="nav_setting">Settings</string>
     <string name="nav_saved">Saved Places</string>
     <string name="nav_home">Home Page</string>
+    <string name="refresh_description">Refresh weather display</string>
+    <string name="weather_icon">Weather icon</string>
 </resources>

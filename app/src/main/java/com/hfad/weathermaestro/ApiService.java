@@ -21,7 +21,6 @@ public class ApiService {
      *  @param  units       Either F for imperial units or C for metric. Anything else will default to kelvin. Might change that.
      *  @return             An object representing the API response
      */
-
     public static CurrentWeather getCurrentWeather(UserLocation location, String units) {
         CurrentWeather currentWeather = null;
         String URI = API_ADDRESS + "weather?";
