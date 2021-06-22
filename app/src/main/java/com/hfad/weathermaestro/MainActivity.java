@@ -2,6 +2,7 @@ package com.hfad.weathermaestro;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -196,5 +197,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(MainActivity.this, "Location Permission Denied", Toast.LENGTH_SHORT) .show();
         }
+    }
+
+    public void goToSettings(View view) {
+        startActivity(new Intent(MainActivity.this, Settings.class));
     }
 }
