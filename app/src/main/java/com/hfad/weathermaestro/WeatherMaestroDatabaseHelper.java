@@ -10,7 +10,7 @@ import com.hfad.weathermaestro.R;
 class WeatherMaestroDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "weathermaestro"; // the name of our database
-    private static final int DB_VERSION = 1; // the version of the database
+    private static final int DB_VERSION = 2; // the version of the database
 
     WeatherMaestroDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -42,6 +42,14 @@ class WeatherMaestroDatabaseHelper extends SQLiteOpenHelper {
             insertWeatherIcon(db, String.valueOf(R.drawable.d13), "13d");
             insertWeatherIcon(db, String.valueOf(R.drawable.d50), "50d");
         }
+        if (oldVersion < 2) {
+            db.execSQL("CREATE TABLE SavedPlaces (" +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "PlaceName TEXT," +
+                    "Favorite BOOLEAN CHECK (Favorite IN (0,1)));");
+                    //Sqlite doesn't actually have a boolean type, it's an alias for INTEGER,
+                    // so the check constraint is to make sure only 1(true) and 0(false) are allowed
+        }
     }
 
     private static void insertWeatherIcon(SQLiteDatabase db, String drawable, String icon) {
@@ -49,5 +57,24 @@ class WeatherMaestroDatabaseHelper extends SQLiteOpenHelper {
         weatherValues.put("Drawable", drawable);
         weatherValues.put("Icon", icon);
         db.insert("Drawables", null, weatherValues);
+    }
+
+    public static void insertSavedPlace(SQLiteDatabase db, String placeName) {
+        ContentValues placeValues = new ContentValues();
+        placeValues.put("PlaceName", placeName);
+        placeValues.put("Favorite", 0);
+        db.insert("SavedPlaces",null,placeValues);
+    }
+
+    public void changeFavoritePlace(String placeName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues placeValues = new ContentValues();
+        placeValues.put("Favorite", 0);
+        // zero out whatever the current favorite is
+        db.update("SavedPlaces",placeValues,null,null);
+
+        placeValues.put("Favorite",1);
+        //set the new favorite
+        db.update("SavedPlaces", placeValues, "PlaceName = ?", new String[]{placeName});
     }
 }
