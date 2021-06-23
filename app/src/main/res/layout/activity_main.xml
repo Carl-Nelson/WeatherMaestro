@@ -150,6 +150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
+        android:onClick="goToSettings"
         android:layout_gravity="top|right"/>
 
 </FrameLayout>
