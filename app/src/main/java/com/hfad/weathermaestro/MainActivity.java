@@ -156,6 +156,15 @@ public class MainActivity extends AppCompatActivity {
             city.setText(weather.name);
             TextView condition = findViewById(R.id.weather_condition);
             condition.setText(weather.weather.get(0).main);
+
+            TextView tempMin = findViewById(R.id.temp_min);
+            tempMin.setText(String.format(Locale.getDefault(),"%.0f",weather.main.temp_min));
+            TextView tempMax = findViewById(R.id.temp_max);
+            tempMax.setText(String.format(Locale.getDefault(),"%.0f",weather.main.temp_max));
+            TextView feelsLike = findViewById(R.id.feels_like);
+            feelsLike.setText(String.format(Locale.getDefault(),"%.0f",weather.main.feels_like));
+            TextView wind = findViewById(R.id.wind);
+            wind.setText(String.format(Locale.getDefault(),"%.0f",weather.wind.speed));
         }
     }
 
@@ -231,4 +240,5 @@ public class MainActivity extends AppCompatActivity {
     public void goToSettings(View view) {
         startActivity(new Intent(MainActivity.this, Settings.class));
     }
+
 }
