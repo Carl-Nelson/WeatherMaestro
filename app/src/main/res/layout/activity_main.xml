@@ -33,7 +33,7 @@
                 android:tint="#FFFFFF" />
 
             <Space
-                android:layout_width="300dp"
+                android:layout_width="285dp"
                 android:layout_height="wrap_content" />
 
             <ImageButton
@@ -46,7 +46,6 @@
                 android:onClick="goToSettings"
                 android:src="@drawable/setting"
                 android:tint="#FFFFFF" />
-
 
         </LinearLayout>
 

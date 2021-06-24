@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,6 +19,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.os.HandlerCompat;
@@ -34,6 +36,9 @@ import com.hfad.models.UserLocation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -164,7 +169,19 @@ public class MainActivity extends AppCompatActivity {
             TextView feelsLike = findViewById(R.id.feels_like);
             feelsLike.setText(String.format(Locale.getDefault(),"%.0f",weather.main.feels_like));
             TextView wind = findViewById(R.id.wind);
-            wind.setText(String.format(Locale.getDefault(),"%.0f",weather.wind.speed));
+            wind.setText(String.format(Locale.getDefault(),"%.0f mph",weather.wind.speed));
+            TextView humidity = findViewById(R.id.humidity);
+            humidity.setText(String.format(Locale.getDefault(),"%d %%",weather.main.humidity));
+
+            Calendar sunriseTime = Calendar.getInstance();
+            sunriseTime.setTimeInMillis((long)((weather.sys.sunrise)*1000));
+            Calendar sunsetTime = Calendar.getInstance();
+            sunsetTime.setTimeInMillis((long)((weather.sys.sunset)*1000));
+
+            TextView sunriseView = findViewById(R.id.sunrise);
+            sunriseView.setText(String.format(Locale.getDefault(), "%d:%02d %s",sunriseTime.get(Calendar.HOUR),sunriseTime.get(Calendar.MINUTE),sunriseTime.get(Calendar.AM_PM) == Calendar.AM ? "am" : "pm"));
+            TextView sunsetView = findViewById(R.id.sunset);
+            sunsetView.setText(String.format(Locale.getDefault(), "%d:%02d %s",sunsetTime.get(Calendar.HOUR),sunsetTime.get(Calendar.MINUTE),sunsetTime.get(Calendar.AM_PM) == Calendar.AM ? "am" : "pm"));
         }
     }
 
