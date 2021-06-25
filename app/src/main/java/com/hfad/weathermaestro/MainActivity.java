@@ -187,8 +187,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Asynchronous method that gets the current weather for the user's location
-     * and calls displayWeather() to update the UI display. Technically it tells the handler to
-     * call displayWeather()...
+     * and tells the main thread to call displayWeather() to update the UI display,
+     * via the handler.
      *
      * @param location  UserLocation object containing whatever location data is available
      */
